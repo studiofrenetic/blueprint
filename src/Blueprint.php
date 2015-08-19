@@ -66,6 +66,10 @@ class Blueprint
         $resources = $controllers->map(function ($controller) use ($version) {
             $controller = new ReflectionClass($controller);
 
+            if ($interfaces = $controller->getInterfaces()) {
+                $controller = reset($interfaces);
+            }
+
             $actions = new Collection;
 
             // Spin through all the methods on the controller and compare the version
