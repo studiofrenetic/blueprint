@@ -151,15 +151,15 @@ class Action extends Section
             $uri = '/'.$uri;
         }
 
-        return rtrim('/'.trim($this->resource->getUri(), '/').rtrim($uri, '/'), '/');
+        return '/'.trim(trim($this->resource->getUri(), '/').rtrim($uri, '/'), '/');
     }
 
     /**
      * Get the actions method.
      *
-     * @return string
-     *
      * @throws \RuntimeException
+     *
+     * @return string
      */
     public function getMethod()
     {

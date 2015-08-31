@@ -4,7 +4,6 @@ namespace Dingo\Blueprint;
 
 use ReflectionClass;
 use RuntimeException;
-use Dingo\Blueprint\Annotation;
 use Illuminate\Support\Collection;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\SimpleAnnotationReader;
@@ -64,7 +63,7 @@ class Blueprint
     public function generate(Collection $controllers, $name, $version)
     {
         $resources = $controllers->map(function ($controller) use ($version) {
-            $controller = new ReflectionClass($controller);
+            $controller = $controller instanceof ReflectionClass ? $controller : new ReflectionClass($controller);
 
             if ($interfaces = $controller->getInterfaces()) {
                 $controller = reset($interfaces);
@@ -205,7 +204,7 @@ class Blueprint
     /**
      * Append a response subsection to an action.
      *
-     * @param string                                   $contents
+     * @param string                               $contents
      * @param \Dingo\Blueprint\Annotation\Response $response
      *
      * @return void
@@ -230,7 +229,7 @@ class Blueprint
     /**
      * Append a request subsection to an action.
      *
-     * @param string                                  $contents
+     * @param string                              $contents
      * @param \Dingo\Blueprint\Annotation\Request $request
      *
      * @return void
@@ -355,7 +354,7 @@ class Blueprint
      */
     protected function tab($repeat = 1)
     {
-        return str_repeat("    ", $repeat);
+        return str_repeat('    ', $repeat);
     }
 
     /**

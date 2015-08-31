@@ -2,9 +2,8 @@
 
 namespace Dingo\Blueprint;
 
-use ReflectionClass;
 use Illuminate\Support\Collection;
-use Dingo\Blueprint\Annotation;
+use ReflectionClass;
 use phpDocumentor\Reflection\DocBlock;
 
 class Resource extends Section
@@ -82,7 +81,7 @@ class Resource extends Section
             $definition = $method.' '.$definition;
         }
 
-        return '# '.$this->getIdentifier().' ['.$definition.']';
+        return '# '.$this->getIdentifier().($definition == '/' ? '' : ' ['.$definition.']');
     }
 
     /**

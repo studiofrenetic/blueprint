@@ -2,7 +2,6 @@
 
 namespace Dingo\Blueprint\Tests;
 
-use ReflectionMethod;
 use Dingo\Blueprint\Blueprint;
 use PHPUnit_Framework_TestCase;
 use Illuminate\Support\Collection;
@@ -433,5 +432,24 @@ Delete an existing photo for a given user.
 EOT;
 
         $this->assertEquals(trim($expected), $blueprint->generate($resources, 'testing', 'v2'));
+    }
+
+    public function testGeneratingSimpleBlueprints()
+    {
+        $resources = new Collection([new Stubs\ActivityController]);
+
+        $blueprint = new Blueprint(new SimpleAnnotationReader);
+
+        $expected = <<<EOT
+FORMAT: 1A
+
+# testing
+
+# Activity
+
+## Show all activities [GET /activity]
+EOT;
+
+        $this->assertEquals(trim($expected), $blueprint->generate($resources, 'testing', 'v1'));
     }
 }
